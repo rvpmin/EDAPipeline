@@ -4,7 +4,6 @@ import seaborn as sns
 import argparse
 import os
 from fpdf import FPDF
-from datetime import datetime
 
 
 def load_data(path):
@@ -74,8 +73,6 @@ def add_cover(pdf):
 
     pdf.ln(20)
     pdf.set_font("Arial", size=12)
-    pdf.cell(0, 10, "Autor: Roxana Pérez", 0, 1, "C")
-    pdf.cell(0, 10, f"Fecha: {datetime.today().strftime('%Y-%m-%d')}", 0, 1, "C")
 
 def add_section_title(pdf, title):
     pdf.set_font("Arial", "B", 14)
@@ -121,11 +118,13 @@ def generate_pdf(df, types, missing):
     add_section_title(pdf, "Resumen General")
     add_text_block(pdf, f"El dataset contiene {df.shape[0]} filas y {df.shape[1]} columnas.")
 
-    # Data tyypes
+
+
     add_section_title(pdf, "Tipos de Datos")
     add_table(pdf, types)
 
-    # Missing
+
+
     add_section_title(pdf, "Datos Faltantes")
     missing_percent = (missing / len(df)) * 100
     missing_info = {
